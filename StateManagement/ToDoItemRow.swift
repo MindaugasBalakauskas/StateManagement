@@ -8,17 +8,22 @@
 import SwiftUI
 
 struct ToDoItemRow: View {
-    let item: ToDoItem
+    @Binding var item: ToDoItem
     var body: some View {
         // Replace placeholder with a simple row layout for now
         HStack {
+            Button("Button") {
+                item.isDone.toggle()
+            }
             VStack (alignment: .leading) {
                 Text(item.title)
                     .font(.headline)
+                    .strikethrough(item.isDone)
                 if let description = item.description, !description.isEmpty {
                     Text("— \(description)")
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
+                        .strikethrough(item.isDone)
                 }
             }
             .padding(.leading)
@@ -35,10 +40,13 @@ struct ToDoItemRow_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            ToDoItemRow(item: todoItemWithoutDescription)
+            ToDoItemRow(item: .constant(todoItemWithoutDescription))
                 .previewDisplayName("No description")
-            ToDoItemRow(item: todoItemWithDescription)
+            StatefulPreviewWrapper(todoItemWithoutDescription) { todoItem in ToDoItemRow(item: todoItem)}
+            
+            ToDoItemRow(item: .constant(todoItemWithDescription))
                 .previewDisplayName("With description")
+            StatefulPreviewWrapper(todoItemWithDescription) { todoItem in ToDoItemRow(item: todoItem)}
         }
         .previewLayout(.fixed(width: 300, height: 70))
     }
