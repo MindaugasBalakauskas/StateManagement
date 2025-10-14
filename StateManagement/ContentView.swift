@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var todoItems: [TodoItem] = (try? .fromJSON(named: "TodoItems")) ?? []
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        List($todoItems) { $todoItem in
+            ToDoItemRow(item: $todoItem)
         }
-        .padding()
     }
 }
 

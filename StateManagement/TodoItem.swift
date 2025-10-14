@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ToDoItem: Identifiable {
+struct TodoItem: Codable, Identifiable {
     var id: UUID = UUID()
     var title: String
     var description: String?

@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct ToDoItemRow: View {
-    @Binding var item: ToDoItem
+    @Binding var item: TodoItem
+    
     var body: some View {
         // Replace placeholder with a simple row layout for now
         HStack {
-            Button("Button") {
-                item.isDone.toggle()
-            }
+            TodoToggleButton(state: $item.isDone)
+                .frame(width: 40, height: 40)
             VStack (alignment: .leading) {
                 Text(item.title)
                     .font(.headline)
                     .strikethrough(item.isDone)
                 if let description = item.description, !description.isEmpty {
-                    Text("— \(description)")
-                        .foregroundStyle(.secondary)
+                    Text(description)
                         .font(.subheadline)
                         .strikethrough(item.isDone)
                 }
@@ -30,23 +29,23 @@ struct ToDoItemRow: View {
             Spacer()
         }
         .padding()
-        .frame(height: 70)
     }
 }
 
 struct ToDoItemRow_Previews: PreviewProvider {
-    static let todoItemWithoutDescription = ToDoItem(id: UUID(), title: "Buy some bread🥖")
-    static let todoItemWithDescription = ToDoItem(id: UUID(), title: "Buy some milk🥛", description: "Get a lactose free one")
-
+    static let todoItemWithoutDescription = TodoItem( id: UUID(), title: "Buy some bread 🥖")
+    static let todoItemWithDescription = TodoItem( id: UUID(), title: "Buy some milk 🥛", description: "Get a lactose free one")
+    
+    
+    
     static var previews: some View {
         Group {
             ToDoItemRow(item: .constant(todoItemWithoutDescription))
-                .previewDisplayName("No description")
-            StatefulPreviewWrapper(todoItemWithoutDescription) { todoItem in ToDoItemRow(item: todoItem)}
+                .previewDisplayName("Without description")
             
-            ToDoItemRow(item: .constant(todoItemWithDescription))
-                .previewDisplayName("With description")
-            StatefulPreviewWrapper(todoItemWithDescription) { todoItem in ToDoItemRow(item: todoItem)}
+            StatefulPreviewWrapper(todoItemWithDescription) { todoItem in ToDoItemRow(item: todoItem)
+            }
+            .previewDisplayName("With description")
         }
         .previewLayout(.fixed(width: 300, height: 70))
     }
