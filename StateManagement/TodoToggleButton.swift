@@ -19,7 +19,7 @@ struct TodoToggleButton: View {
             GeometryReader { proxy in
                 ZStack {
                     Circle()
-                        .stroke(style: StrokeStyle(lineWidth: 2))
+                        .stroke(style: StrokeStyle(lineWidth: 2.0))
                         .foregroundColor(.blue)
                     if state {
                         Circle()
@@ -27,7 +27,6 @@ struct TodoToggleButton: View {
                             .foregroundColor(.blue)
                     }
                 }
-                .padding(8)
             }
         }
         .scaledToFit()

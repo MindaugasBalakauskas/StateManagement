@@ -25,7 +25,6 @@ struct ToDoItemRow: View {
                         .strikethrough(item.isDone)
                 }
             }
-            .padding(.leading)
             Spacer()
         }
         .padding()
