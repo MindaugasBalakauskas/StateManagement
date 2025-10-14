@@ -13,7 +13,9 @@ struct TodoItemsListView: View {
     
     var body: some View {
         List($viewModel.todoItems) { $todoItem in
-            ToDoItemRow(item: $todoItem)
+            ToDoItemRow(item: $todoItem.onNewValue {
+                viewModel.reoder()
+            })
         }
         .onAppear {
             viewModel.loadItems()
