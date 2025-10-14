@@ -5,6 +5,7 @@
 //  Created by M Balakauskas on 14/10/2025.
 //
 import Combine
+import SwiftUI
 import Foundation
 
 
@@ -20,8 +21,14 @@ class TodoItemsListViewModel: ObservableObject {
         }
        
     }
-    func reoder() {
+    func reorder() {
         todoItems.sort(by: { !$0.isDone && $1.isDone})
+    }
+    func deleteItems(at indexSet: IndexSet) {
+        todoItems.remove(atOffsets: indexSet)
+    }
+    func moveItems(from indexSet: IndexSet, to newIndex: Int) {
+        todoItems.move(fromOffsets: indexSet, toOffset: newIndex)
     }
 }
 
