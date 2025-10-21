@@ -20,6 +20,7 @@ struct AboutView: View {
         }
         .sheet(isPresented: $isMoreInfoPresented) {
             MoreInfoView()
+                .presentationDetents([.medium, .large, .fraction(0.8), .fraction(0.25)])
         }
     }
 }
